@@ -42,7 +42,7 @@ function Create(props){
   return <article>
     <h2>Create</h2>
     <form onSubmit={event => {
-      event.preventDefaultDefault ();
+      event.preventDefault();
       const title = event.target.title.value;
       const body = event.target.body.value;
       props.onCreate(title, body);
@@ -78,13 +78,13 @@ function App() {
     content = <Article title={title} body={body}></Article>
   } else if (mode == "CREATE") {
     content = <Create onCreate={(_title, _body) => {
-      const newTopic = {}
-      const newTopics = []
+      const newTopic = {id:nextId, title:_title, body:_body}
+      const newTopics = [...topics]
       newTopics.push(newTopic);
       setTopics(newTopics);
       setMode('READ');
       setId(nextId);
-      setNextId(nextId+1)
+      setNextId(nextId+1);
     }}></Create>
   }
 
